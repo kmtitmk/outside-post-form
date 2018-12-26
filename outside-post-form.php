@@ -43,7 +43,7 @@ class OutsidePostform
             add_action('wp_head', array($this, 'run_alert'));
         }
     }
-
+    
 
     //ショートコード
     public function outside_postform_func()
@@ -76,16 +76,12 @@ class OutsidePostform
                 <input type="number" name="ID" value="" placeholder="ID"><span class="sub">※修正の場合はIDを入力する</span>
                 <input type="text" name="post_title" value="" placeholder="ここにタイトルを入力">
                 <input type="text" name="post_name" value="" placeholder="スラッグ">
-
                 <span class="heading">投稿タイプ</span>
                 <select name="post_type">{$select_option}</select>
-
                 <span class="heading">カテゴリー</span>
                 {$cats_li}
-
                 <span class="heading">タグ</span>
                 {$tags_li}
-
                 <textarea name="post_content"></textarea>
                 <button class="button button-large button-primary" type="submit">送信する</button>
             </form>
@@ -126,9 +122,8 @@ EOT;
     //インサートの実行
     public function run_insert_post()
     {
-        $this->insert_post_tag();
         if (is_user_logged_in()) {
-            $nonce = $_REQUEST['nonce_outside_postform'];
+            $nonce = $this->post_data['nonce_outside_postform'];
             if (wp_verify_nonce($nonce, 'outside_postform')) {
                 $my_post = array(
                     'post_status' => 'publish',
